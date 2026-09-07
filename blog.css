@@ -215,6 +215,7 @@ p {
 .search-box {
   flex: 6;
   position: relative;
+  align-items: center;
   height: 50px;
 }
 .lyubimi {
@@ -288,14 +289,10 @@ box-sizing: border-box;
 
 #searchInput {
   height: 35px;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
+  position: relative;
 }
 
 .search-box button {
+  position: relative;
   height: 35px;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
 }
