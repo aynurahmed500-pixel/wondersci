@@ -289,4 +289,12 @@ body {
 
 .profil {
   border: 2px solid pink;
+
+#searchInput {
+  height: 28px;
+}
+
+.search-box button {
+  height: 28px;
+}
 }
