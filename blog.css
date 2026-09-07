@@ -23,17 +23,6 @@ nav {
 
 
 
-.hero h1 {
-  color: white;
-  font-size: 40px;
-  text-align: center;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-
 @media (min-width: 600px) {
   .hero {
     background-image: url(https://i.imgur.com/NAgJiXx.png);
@@ -41,9 +30,7 @@ nav {
     height: 250px;
     position: relative;
   }
-  .hero h1 {
-    font-size:80px;
-  }
+
 }
 /* =======================
    TOP BAR + MENU SYSTEM
