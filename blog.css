@@ -215,6 +215,7 @@ p {
 .search-box {
   flex: 6;
   position: relative;
+  height: 50px;
 }
 .lyubimi {
   flex: 1;
