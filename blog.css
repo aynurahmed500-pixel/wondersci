@@ -1,3 +1,10 @@
+
+img{
+width:100%;
+height:auto;
+display:block;
+}
+
 body, nav, header{
   background: white;
   font-family: "Times New Roman", Times, serif;
@@ -7,7 +14,13 @@ nav {
   position: relative;
   text-align: center;
   width: 100%;
+  z-index: 10000;
 }
+
+body {
+margin:0;
+}
+
 
 /* HERO */
 .hero {
@@ -245,4 +258,13 @@ transform:translate(-50%,-50%);
 .fade-in.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+* {
+box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0 10;
 }
