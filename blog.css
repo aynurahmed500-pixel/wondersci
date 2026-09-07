@@ -288,9 +288,14 @@ box-sizing: border-box;
 
 #searchInput {
   height: 35px;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%,-50%);
 }
 
 .search-box button {
   height: 35px;
-}
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%,-50%);
 }
