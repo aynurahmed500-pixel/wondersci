@@ -290,7 +290,7 @@ box-sizing: border-box;
 #searchInput {
   height: 35px;
   position: relative;
-top: 50%;
+  top: 50%;
   left:50%;
   transform:translate(-50%,-50%);
 }
@@ -298,7 +298,7 @@ top: 50%;
 .search-box button {
   position: relative;
   height: 35px;
-top: 50%;
+  top: 50%;
   left:50%;
   transform:translate(-50%,-50%);
 }
