@@ -262,28 +262,4 @@ box-sizing: border-box;
 }
 
 
-.top-bar {
-  border: 2px solid red;
-}
-
-.menu-icon {
-  border: 2px solid blue;
-}
-
-.search-box {
-  border: 2px solid green;
-}
-
-.lyubimi {
-  border: 2px solid purple;
-}
-
-.pazaruvane {
-  border: 2px solid orange;
-}
-
-.profil {
-  border: 2px solid pink;
-}
-
 
