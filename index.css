@@ -176,6 +176,10 @@ nav {
   border: 1px solid black;
 }
 
+footer {
+line-height: 1;
+}
+
 
 
 * {
