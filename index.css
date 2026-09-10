@@ -213,8 +213,8 @@ nav {
 
   background-size:cover;
   background-position:center;
-
   position:relative;
+  border: 1px solid black;
 }
 
 .dolu h2{
