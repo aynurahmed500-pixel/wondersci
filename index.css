@@ -177,7 +177,7 @@ nav {
 }
 
 footer {
-line-height: 0.5;
+line-height: 1;
 font-size: clamp (15, 1.5vw, 25);
 }
 
