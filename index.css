@@ -181,6 +181,13 @@ line-height: 1;
 font-size: clamp(15px, 2vw, 30px);
 }
 
+.dolu2 {
+position: relative;
+top: 50;
+left: 50;
+transform: translate(-50%,-50%);
+}
+
 .centriran {
 text-align: center;
 }
