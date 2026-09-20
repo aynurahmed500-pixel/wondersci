@@ -23,7 +23,7 @@ nav {
 /* =======================
    HERO
 ======================= */
-@media (max-wodth: 599px) {
+@media (max-width: 599px) {
 .hero {
   height: 360px;
   width: 100%;
