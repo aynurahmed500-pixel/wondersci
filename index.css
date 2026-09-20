@@ -23,6 +23,7 @@ nav {
 /* =======================
    HERO
 ======================= */
+@media (max-wodth: 599px) {
 .hero {
   height: 360px;
   width: 100%;
@@ -33,6 +34,8 @@ nav {
   border: 1px solid black;
   margin-top:60px;
 }
+}
+
 
 @media (min-width: 600px) {
   .hero {
