@@ -1,6 +1,7 @@
 
 
 /* Заглавна снимка на телефон */
+@media (max-width: 599 px){
 .hero {
 height: 360px;
 width: 100%;
@@ -12,4 +13,4 @@ background-position: center;
  border: 1px solid black;
  margin-top: 60px;
 }
-
+}
