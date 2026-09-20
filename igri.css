@@ -5,26 +5,11 @@
 /*Заглавна снимка на телефон*/
 @media (max-width: 599px){
 .hero {
-  height: 360px;
-  width: 100%;
-  margin: 0;
   background-image: url(https://i.imgur.com/fLtCPeC.png);
-  background-size: cover;
-  background-position: center;
-  position:relative;
-  margin-top: 60px;
-  border: 1px solid black;
 }
 }
 @media (min-width: 600px) {
   .hero {
     background-image: url(https://i.imgur.com/gUAMkzq.png);
-    background-position: center;
-    background-size:cover;
-    height: 300px;
-    width:100%;
-    position:relative;
-    border: 1px solid black;
-    z-index:1;
   }
 }
