@@ -45,6 +45,7 @@ nav {
     height: 250px;
     width:100%;
     position:relative;
+    border: 1px solid black;
     z-index:1;
   }
 }
