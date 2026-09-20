@@ -169,6 +169,7 @@ nav {
 /* =======================
    FOOTER
 ======================= */
+@media (max-width: 599 px){
 .dolu{
   background-image:url("https://i.imgur.com/TA4cMCV.png");
   height:250px;
@@ -180,6 +181,23 @@ nav {
   position:relative;
   border: 1px solid black;
 }
+}
+
+@media (min-width: 600px) {
+.dolu{
+ background-image:url("https://i.imgur.com/TA4cMCV.png");
+  height:250px;
+  width:100%;
+  margin-top:100px;
+
+  background-size:cover;
+  background-position:center;
+  position:relative;
+  border: 1px solid black;
+
+}
+}
+
 
 footer {
 line-height: 1;
