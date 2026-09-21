@@ -228,8 +228,8 @@ font-size: clamp(15px, 2vw, 30px);
 }
 
 footer {
-line-height: 0.5;
-font-size: clamp(1px, 1vw, 30px);
+line-height: 1;
+font-size: clamp(1px, 2vw, 30px);
 }
   
 }
