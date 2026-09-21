@@ -229,7 +229,7 @@ font-size: clamp(15px, 2vw, 30px);
 
 footer {
 line-height: 0.5;
-font-size: clamp(1px, 1.5vw, 30px);
+font-size: clamp(1px, 1vw, 30px);
 }
   
 }
@@ -269,9 +269,11 @@ font-weight: bold;
 font-size: 10px;
 }
 }
+
 * {
   box-sizing: border-box;
 }
+
 @media (min-width: 600px){
 .centriran {
 text-align: center;
