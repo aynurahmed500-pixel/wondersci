@@ -256,7 +256,6 @@ padding-left: 25px;
 }
 
 #WonderSci {
-padding-top: 25px;
 margin-bottom: 25px;
 font-style: italic;
 font-weight: bold;
@@ -283,6 +282,8 @@ text-align: center;
 padding-left: 25px;
 }
 #WonderSci {
+
+padding-top: 25px;
 margin-bottom: 25px;
 font-style: italic;
 font-weight: bold;
