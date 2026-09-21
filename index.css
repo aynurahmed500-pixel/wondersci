@@ -205,6 +205,12 @@ nav {
   position:relative;
   border: 1px solid black;
 }
+
+footer {
+line-height: 1;
+font-size: clamp(15px, 2vw, 30px);
+}
+  
 }
 
 @media (min-width: 600px) {
@@ -220,13 +226,16 @@ nav {
   border: 1px solid black;
 
 }
-}
-
 
 footer {
-line-height: 1;
-font-size: clamp(15px, 2vw, 30px);
+line-height: 0.5;
+font-size: clamp(1px, 1.5vw, 30px);
 }
+  
+}
+
+
+
 
 .dolu2 {
 position: absolute;
@@ -263,7 +272,25 @@ font-size: 10px;
 * {
   box-sizing: border-box;
 }
-
+@media (min-width: 600px){
+.centriran {
+text-align: center;
+}
+.dopulnitelno {
+padding-left: 25px;
+}
+#WonderSci {
+margin-bottom: 25px;
+font-style: italic;
+font-weight: bold;
+}
+#© {
+}
+.maluk {
+font-size: 10px;
+}
+}
+  
 body {
   margin: 0;
   padding: 0 10px;
