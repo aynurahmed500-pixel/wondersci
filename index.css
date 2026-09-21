@@ -55,7 +55,11 @@ nav {
    TOP BAR (mobile only)
 ======================= */
 @media (max-width: 599px) {
-
+  
+ nav {
+    display: flex;
+    flex-direction: column;
+  }
   .top-bar {
     position: fixed;
     top: 0;
@@ -70,6 +74,7 @@ nav {
     align-items: center;
     border-bottom: 1px solid black;
     z-index: 2000;
+    order: 1;
   }
 
   .menu-icon {
@@ -100,6 +105,7 @@ nav {
     transition: max-height 0.3s ease;
 
     z-index: 1500;
+    order: 2;
   }
 
   .menu.active {
@@ -147,6 +153,7 @@ nav {
     padding: 8px 15px;
 
     flex-wrap: nowrap;
+    order: 1;
   }
 
   .menu a {
@@ -170,6 +177,7 @@ nav {
     display: flex;
     align-items: center;
     width: auto;
+    order: 2;
   }
 
   .search-box {
