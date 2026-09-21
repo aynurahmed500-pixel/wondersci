@@ -240,6 +240,8 @@ transform:translate(-50%,-50%);
 width: 100%;
 }
 
+@media (max-width: 599px){
+
 .centriran {
 text-align: center;
 }
@@ -261,7 +263,7 @@ font-weight: bold;
 .maluk {
 font-size: 10px;
 }
-
+}
 * {
   box-sizing: border-box;
 }
