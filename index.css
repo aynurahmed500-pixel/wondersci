@@ -418,7 +418,7 @@ transform:translate(-50%,-50%);
   align-items: center;
   width: clamp(180px, 18vw, 260px);
   height: 32px;
-  border: 1px solid #999;
+  border: 1px solid black;
   border-radius: 6px;
   overflow: hidden;
   background: white;
@@ -443,7 +443,7 @@ transform:translate(-50%,-50%);
   width: 34px;
   height: 100%;
   border: none;
-  border-left: 1px solid #999;
+  border-left: ;
   border-radius: 0;
   background: white;
   cursor: pointer;
@@ -453,5 +453,5 @@ transform:translate(-50%,-50%);
 }
 
 .search-box button:hover {
-  background: #eef7ff;
+  background: #8727F5;
 }
