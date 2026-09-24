@@ -1,5 +1,6 @@
 .predlozheni {
   width: 100%;
+  height: 600px;
   overflow: hidden;
   padding: 20px 0;
 }
@@ -21,7 +22,6 @@
   scroll-behavior: smooth;
 
   scrollbar-width: none;
-  height: auto;
 }
 
 .produkt-scroll::-webkit-scrollbar {
