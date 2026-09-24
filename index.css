@@ -21,6 +21,7 @@
   scroll-behavior: smooth;
 
   scrollbar-width: none;
+  height: auto;
 }
 
 .produkt-scroll::-webkit-scrollbar {
