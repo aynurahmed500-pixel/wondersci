@@ -1,1 +1,71 @@
-v
+
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Количка | WonderSci</title>
+
+  <link rel="stylesheet" href="./kolichka.css">
+  <script src="./kolichka.js" defer></script>
+</head>
+
+<body>
+
+  <main class="cart-page">
+
+    <h1>Твоята количка</h1>
+    <p class="intro">Още една стъпка към нови научни открития!</p>
+
+    <div class="cart-layout">
+
+      <section class="cart-products">
+        <h2>Избрани продукти</h2>
+
+        <div id="cartItems"></div>
+
+        <p id="emptyCart" class="empty-message" hidden>
+          Количката ти е празна.
+          <a href="./katalog.html">Разгледай каталога</a>
+        </p>
+
+        <a class="back-link" href="./katalog.html">
+          ← Обратно към каталога
+        </a>
+      </section>
+
+      <aside class="cart-summary">
+        <h2>Обобщение</h2>
+
+        <div class="summary-line">
+          <span>Продукти</span>
+          <span id="subtotal">0,00 лв.</span>
+        </div>
+
+        <div class="summary-line">
+          <span>Доставка</span>
+          <span id="shipping">Ще бъде уточнена</span>
+        </div>
+
+        <hr>
+
+        <div class="summary-line total-line">
+          <strong>Общо</strong>
+          <strong id="total">0,00 лв.</strong>
+        </div>
+
+        <button id="checkoutButton" type="button">
+          Продължи към поръчката
+        </button>
+
+        <p class="note">
+          Цената на доставката ще бъде уточнена при оформяне на поръчката.
+        </p>
+      </aside>
+
+    </div>
+  </main>
+
+</body>
+</html>
