@@ -1,99 +1,211 @@
+
 <!DOCTYPE html>
-<html>
-  <head>
-  <link rel="stylesheet" href="obsht.css" />
-  <link rel="stylesheet" href="profil.css" />
-  <link rel="icon" type="image/png" href="https://i.imgur.com/lqiHIvR.png">
-  <title>Профил</title>
-  <meta name="viewport"
-  content="width=device-width,
-  initial-scale=1.0">
-  </head>
-  <body>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профил | WonderSci</title>
+    <link rel="icon" type="image/png"
+          href="https://i.imgur.com/lqiHIvR.png">
+    <link rel="stylesheet" href="obsht.css">
+    <link rel="stylesheet" href="profil.css">
+    <script src="profil.js" defer></script>
+</head>
+<body>
     <nav>
-      <div class="top-bar">
-      <div class="menu-icon" onclick="toggleMenu()">☰</div>
-        <div class="search-box">
-  <input 
-    type="text" 
-    id="searchInput"
-    placeholder="Търси в WonderSci..."
-    oninput="searchSite()"
-  >
-  <button onclick="searchSite()">🔍</button>
-</div>
-<div id="searchResults"></div>
-         <div class="lyubimi" onclick="surce()"> 
-          <img class="heart" src="https://i.imgur.com/Ui8U71s.png" alt="heart"></div>
-        <div class="pazaruvane" onclick="kolichka()">
-        <img class="kolichka" src="https://i.imgur.com/ozZp2i3.png" alt="kolichka">
+        <div class="top-bar">
+            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Търси в WonderSci..."
+                    oninput="searchSite()"
+                >
+                <button type="button" onclick="searchSite()">🔍</button>
+            </div>
+            <div id="searchResults"></div>
+            <div class="lyubimi" onclick="surce()">
+                <img class="heart" src="https://i.imgur.com/Ui8U71s.png" alt="Любими">
+            </div>
+            <div class="pazaruvane" onclick="kolichka()">
+                <img class="kolichka" src="https://i.imgur.com/ozZp2i3.png" alt="Количка">
+            </div>
+            <div class="profil" onclick="ikona()">
+                <img class="profil-snimka" src="https://i.imgur.com/FnlG9qk.png" alt="Профил">
+            </div>
         </div>
-        <div class="profil" onclick="ikona()">
-        <img class="profil-snimka" src="https://i.imgur.com/FnlG9qk.png" alt="ikona">
+        <div class="menu" id="menu">
+            <a href="index.html">Начало</a>
+            <a href="katalog.html">Каталог</a>
+            <a href="profil.html">Профил</a>
+            <a href="poruchki.html">Поръчки</a>
+            <a href="igri.html">Игри</a>
+            <a href="blog.html">Блог</a>
+            <a href="zanas.html">За нас</a>
+            <a href="contacti.html">Контакти</a>
         </div>
-      </div>
-      <div class="menu" id="menu">
-      <a href="index.html">Начало</a>
-      <a href="katalog.html">Каталог</a>
-      <a href="profil.html">Профил</a>
-      <a href="poruchki.html">Поръчки</a>
-      <a href="igri.html">Игри</a>
-      <a href="blog.html">Блог</a>
-      <a href="zanas.html">За нас</a>
-      <a href="contacti.html">Контакти</a>
-      </div>
     </nav>
-    <header class="hero">
-    </header>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-    <p class="fade-in">iwhshiahshsj iwhsuiab</p>
-     
- <footer class="dolu">
-<div class="dolu2">
-  <p class="centriran" id="WonderSci">WONDERSCI
-</br>„Науката започва с любопитство.“</p>
-<a href="vuprosi.html">
-  <p class="dopulnitelno">Често задавани въпроси</p>
-</a>
-<a href="usloviq.html">
-  <p class="dopulnitelno">Общи условия</p>
-</a>
-  <a href="politika.html">
-<p class="dopulnitelno" id="politika">Политика за поверителност</p>
-  </a>
-  <a href="plashtane.html">
-<p class="dopulnitelno" id="plashtane">Плащане, доставка и връщане</p>
-  </a>
-<p class="centriran maluk">🧪 Научи. Експериментирай. Откривай.</p>
-<p class="centriran maluk" id="©">© 2026 WonderSci
-</br>Всички права запазени.</p>
-</div>
-    </footer>       
-    
-    <script src="profil.js"></script>
+    <main class="profile-page">
+        <header class="page-header">
+            <h1>Моят профил</h1>
+            <p>Добре дошъл в своя свят на научни открития!</p>
+        </header>
+        <div class="profile-layout">
+            <aside class="profile-sidebar">
+                <div class="avatar" id="avatar">И</div>
+                <h2 id="sidebarName">Иван Иванов</h2>
+                <p id="sidebarEmail">ivan@example.com</p>
+                <nav class="profile-nav">
+                    <a href="#personalInfo" class="active"> Лични данни </a>
+                    <a href="poruchki.html"> Моите поръчки </a>
+                    <a href="lyubimi.html"> Любими продукти </a>
+                    <a href="#settings"> Настройки </a>
+                </nav>
+                <button type="button" id="logoutButton" class="logout-button"> Изход от профила </button>
+            </aside>
+            <div class="profile-content">
+                <section class="profile-card" id="personalInfo">
+                    <div class="card-heading">
+                        <div>
+                            <h2>Лична информация</h2>
+                            <p>Прегледай и редактирай данните си.</p>
+                        </div>
+                        <button
+                            type="button"
+                            id="editButton"
+                            class="edit-button"
+                        >
+                            Редактирай
+                        </button>
+                    </div>
+                    <form id="profileForm">
+                        <div class="form-grid">
+                            <div class="form-field">
+                                <label for="firstName">Име</label>
+                                <input
+                                    type="text"
+                                    id="firstName"
+                                    value="Иван"
+                                    disabled
+                                    required
+                                >
+                            </div>
+                            <div class="form-field">
+                                <label for="lastName">Фамилия</label>
+                                <input
+                                    type="text"
+                                    id="lastName"
+                                    value="Иванов"
+                                    disabled
+                                    required
+                                >
+                            </div>
+                            <div class="form-field full-width">
+                                <label for="email">Имейл адрес</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    value="ivan@example.com"
+                                    disabled
+                                    required
+                                >
+                            </div>
+                            <div class="form-field full-width">
+                                <label for="phone">
+                                    Телефон (по желание)
+                                </label>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    placeholder="Въведи телефон"
+                                    disabled
+                                >
+                            </div>
+                        </div>
+                        <div class="form-actions" id="formActions" hidden>
+                            <button type="submit" class="save-button">
+                                Запази промените
+                            </button>
+                            <button
+                                type="button"
+                                id="cancelButton"
+                                class="cancel-button"
+                            >
+                                Отказ
+                            </button>
+                        </div>
+                        <p
+                            id="statusMessage"
+                            class="status-message"
+                            role="status"
+                        ></p>
+                    </form>
+                </section>
+                <section class="profile-card" id="settings">
+                    <h2>Настройки</h2>
+                    <p class="settings-description">
+                        Управлявай предпочитанията си в WonderSci.
+                    </p>
+                    <label class="setting-row">
+                        <span>
+                            <strong>Известия за новини</strong>
+                            <small>
+                                Получавай информация за нови комплекти
+                                и инициативи.
+                            </small>
+                        </span>
+                        <input
+                            type="checkbox"
+                            id="newsNotifications"
+                        >
+                    </label>
+                    <label class="setting-row">
+                        <span>
+                            <strong>Научни предложения</strong>
+                            <small>
+                                Виж предложения за научни комплекти
+                                и експерименти.
+                            </small>
+                        </span>
+                        <input
+                            type="checkbox"
+                            id="scienceSuggestions"
+                            checked
+                        >
+                    </label>
+                    <button
+                                              id="saveSettings"
+                        class="save-button"
+                    >
+                        Запази настройките
+                    </button>
+                    <p id="settingsMessage" class="status-message" role="status"></p>
+                </section>
+            </div>
+        </div>
+        <a href="index.html" class="back-link"> ← Към началната страница</a>
+    </main>
+    <footer class="dolu">
+        <div class="dolu2">
+            <p class="centriran" id="WonderSci">WONDERSCI<br>„Науката започва с любопитство.“</p>
+            <a href="vuprosi.html">
+                <p class="dopulnitelno">Често задавани въпроси</p>
+            </a>
+            <a href="usloviq.html">
+                <p class="dopulnitelno">Общи условия</p>
+            </a>
+            <a href="politika.html">
+                <p class="dopulnitelno" id="politika">Политика за поверителност</p>
+            </a>
+            <a href="plashtane.html">
+                <p class="dopulnitelno" id="plashtane"> Плащане, доставка и връщане</p>
+            </a>
+            <p class="centriran maluk">
+                🧪 Научи. Експериментирай. Откривай.</p>
+            <p class="centriran maluk" id="copyright"> © 2026 WonderSci <br>Всички права запазени.
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
