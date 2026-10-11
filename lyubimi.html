@@ -1,1 +1,44 @@
-e
+
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Любими | WonderSci</title>
+    <link rel="stylesheet" href="./lyubimi.css">
+    <script src="./lyubimi.js" defer></script>
+</head>
+<body>
+
+    <main class="favorites-page">
+        <header class="page-header">
+            <div class="heart-icon">♡</div>
+            <h1>Моите любими</h1>
+            <p>Запази откритията, които те вдъхновяват.</p>
+        </header>
+
+        <section class="favorites-section">
+            <div class="section-heading">
+                <h2>Запазени продукти</h2>
+                <span id="favoritesCount">0 продукта</span>
+            </div>
+
+            <div id="favoritesList" class="favorites-grid"></div>
+
+            <div id="emptyFavorites" class="empty-favorites" hidden>
+                <div class="empty-heart">♡</div>
+                <h3>Все още нямаш любими продукти</h3>
+                <p>Разгледай каталога и запази комплектите, които ти харесват.</p>
+                <a href="./katalog.html" class="catalog-button">
+                    Разгледай каталога
+                </a>
+            </div>
+
+            <a href="./katalog.html" class="back-link">
+                ← Обратно към каталога
+            </a>
+        </section>
+    </main>
+
+</body>
+</html>
