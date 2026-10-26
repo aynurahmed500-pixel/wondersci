@@ -462,62 +462,189 @@ transform:translate(-50%,-50%);
 }
 
 
-/* ===== ИЗЧИСТЕН ДИЗАЙН ЗА СТРАНИЦАТА „ЗА НАС“ ===== */
+/* ===== ГОРНА ЛЕНТА ===== */
 
-body {
+nav {
+  position: relative;
+  z-index: 100;
   background: #ffffff;
-  color: #263b45;
+  border-bottom: 1px solid #e8edf0;
+  box-shadow: 0 3px 12px rgba(30, 50, 60, 0.045);
 }
 
-/* Основно съдържание */
-body > p.fade-in {
-  margin: 24px auto;
-  padding: 22px 24px;
-  width: calc(100% - 40px);
-  max-width: 1100px;
-
+.top-bar {
+  min-height: 76px;
+  padding: 12px 4%;
+  display: flex;
+  align-items: center;
+  gap: 22px;
   background: #ffffff;
-  border: 1px solid #edf0f2;
+}
+
+/* Икони */
+
+.menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  min-height: 42px;
+  border: 1px solid #e7ecef;
+  border-radius: 10px;
+  color: #304751;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.lyubimi,
+.pazaruvane,
+.profil {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  min-height: 42px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.heart,
+.kolichka,
+.profil-snimka {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.menu-icon:hover,
+.lyubimi:hover,
+.pazaruvane:hover,
+.profil:hover {
+  background: #f7f9fa;
+  box-shadow: 0 2px 7px rgba(30, 50, 60, 0.07);
+}
+
+/* Поле за търсене */
+
+.search-box {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 540px;
+  min-width: 100px;
+  height: 44px;
+  border: 1px solid #e3e9ec;
   border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
 
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.035);
+.search-box:focus-within {
+  border-color: #b8cbd4;
+  box-shadow: 0 0 0 3px rgba(130, 165, 180, 0.10);
+}
 
+.search-box input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0 14px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #304751;
+  font: inherit;
+}
+
+.search-box input::placeholder {
+  color: #89979e;
+}
+
+.search-box button {
+  height: 100%;
+  padding: 0 14px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* ===== ПАДАЩО МЕНЮ ===== */
+
+.menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 4%;
+  width: 240px;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid #e8edf0;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(30, 50, 60, 0.10);
+  z-index: 200;
+}
+
+.menu a {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 8px;
   color: #354850;
-  font-size: 18px;
-  line-height: 1.7;
-
-  transition:
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+  text-decoration: none;
+  font-size: 15px;
+  transition: background 0.18s, padding-left 0.18s;
 }
 
-/* Леко изразен релеф при посочване */
-@media (hover: hover) and (pointer: fine) {
-  body > p.fade-in.show:hover {
-    border-color: #dfe7eb;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.055);
+.menu a:hover {
+  background: #f5f8f9;
+  padding-left: 18px;
+}
+
+/* Показване на менюто — ако JS добавя този клас */
+.menu.show {
+  display: block;
+}
+
+/* ===== МОБИЛНА ВЕРСИЯ ===== */
+
+@media (max-width: 600px) {
+  .top-bar {
+    min-height: 64px;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .menu-icon,
+  .lyubimi,
+  .pazaruvane,
+  .profil {
+    min-width: 34px;
+    min-height: 38px;
+  }
+
+  .heart,
+  .kolichka,
+  .profil-snimka {
+    width: 21px;
+    height: 21px;
+  }
+
+  .search-box {
+    height: 40px;
+  }
+
+  .search-box input {
+    padding: 0 8px;
+    font-size: 13px;
+  }
+
+  .search-box button {
+    padding: 0 8px;
+  }
+
+  .menu {
+    left: 12px;
+    width: min(260px, calc(100vw - 24px));
   }
 }
-
-/* Мобилна версия */
-@media (max-width: 599px) {
-  body > p.fade-in {
-    width: calc(100% - 28px);
-    margin: 16px auto;
-    padding: 16px;
-
-    border-radius: 10px;
-    font-size: 16px;
-    line-height: 1.6;
-  }
-}
-
-/* По-малки анимации при необходимост */
-@media (prefers-reduced-motion: reduce) {
-  body > p.fade-in {
-    transition: none;
-  }
-}
-
-
-
