@@ -462,5 +462,62 @@ transform:translate(-50%,-50%);
 }
 
 
+/* ===== ИЗЧИСТЕН ДИЗАЙН ЗА СТРАНИЦАТА „ЗА НАС“ ===== */
+
+body {
+  background: #ffffff;
+  color: #263b45;
+}
+
+/* Основно съдържание */
+body > p.fade-in {
+  margin: 24px auto;
+  padding: 22px 24px;
+  width: calc(100% - 40px);
+  max-width: 1100px;
+
+  background: #ffffff;
+  border: 1px solid #edf0f2;
+  border-radius: 12px;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.035);
+
+  color: #354850;
+  font-size: 18px;
+  line-height: 1.7;
+
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* Леко изразен релеф при посочване */
+@media (hover: hover) and (pointer: fine) {
+  body > p.fade-in.show:hover {
+    border-color: #dfe7eb;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.055);
+  }
+}
+
+/* Мобилна версия */
+@media (max-width: 599px) {
+  body > p.fade-in {
+    width: calc(100% - 28px);
+    margin: 16px auto;
+    padding: 16px;
+
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+}
+
+/* По-малки анимации при необходимост */
+@media (prefers-reduced-motion: reduce) {
+  body > p.fade-in {
+    transition: none;
+  }
+}
+
 
 
