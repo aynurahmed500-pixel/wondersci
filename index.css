@@ -324,3 +324,69 @@
   pointer-events: none;
 }
 
+/* Изчистен бял дизайн с лек релеф */
+
+.predlozheni {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.035);
+}
+
+.predlozheni h2 {
+  color: #263b45;
+  font-weight: normal;
+}
+
+/* Продуктови кутийки */
+
+.produkt {
+  background: #ffffff;
+  border: 1px solid #e8edf0;
+  border-radius: 14px;
+
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.025),
+    0 6px 14px rgba(0, 0, 0, 0.045);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.produkt:hover {
+  transform: translateY(-3px);
+
+  border-color: #d5e5eb;
+
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.035),
+    0 10px 20px rgba(0, 0, 0, 0.075);
+}
+
+/* Снимката остава чиста */
+
+.produkt img {
+  transition: transform 0.3s ease;
+}
+
+.produkt:hover img {
+  transform: scale(1.02);
+}
+
+/* Текст */
+
+.produkt h3 {
+  color: #263b45;
+  font-weight: normal;
+}
+
+.produkt p {
+  color: #66757c;
+}
+
+.produkt .produkt-cena {
+  color: #263b45;
+  font-weight: bold;
+}
+
