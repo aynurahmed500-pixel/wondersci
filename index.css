@@ -1,14 +1,27 @@
+
+/* ===== ПРОДУКТОВА СЕКЦИЯ ===== */
+
 .predlozheni {
   width: 100%;
   height: 600px;
   overflow: hidden;
   padding: 20px 0;
+
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.035);
 }
 
 .predlozheni h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin: 0 0 20px;
+
+  color: #263b45;
+  font-size: clamp(25px, 3vw, 36px);
+  font-weight: normal;
 }
+
+/* ===== ХОРИЗОНТАЛНО СКРОЛВАНЕ ===== */
 
 .produkt-scroll {
   display: flex;
@@ -17,336 +30,36 @@
   overflow-x: auto;
   overflow-y: hidden;
 
-  padding: 10px 20px 20px;
+  padding: 10px 20px 30px;
 
   scroll-behavior: smooth;
-
+  scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .produkt-scroll::-webkit-scrollbar {
   display: none;
 }
 
+/* ===== ПРОДУКТОВА КУТИЙКА ===== */
+
 .produkt {
   flex: 0 0 220px;
   height: 350px;
 
-  border: 1px solid black;
-  border-radius: 12px;
-
-  background: white;
-
-  overflow: hidden;
-
-  transition: transform 0.2s;
-}
-
-.produkt:hover {
-  transform: translateY(-4px);
-}
-
-.produkt img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.produkt h3 {
-  margin: 12px;
-  font-size: 18px;
-}
-
-.produkt p {
-  margin: 12px;
-  font-size: 17px;
-}
-
-
-/* === ЖИВЕЦ ЗА ПРЕДЛОЖЕНИТЕ ПРОДУКТИ === */
-
-.predlozheni {
-  background: linear-gradient(
-    135deg,
-    #f0fbff 0%,
-    #ffffff 50%,
-    #f4fff6 100%
-  );
-  border-radius: 24px;
-  position: relative;
-  isolation: isolate;
-}
-
-/* Заглавие */
-.predlozheni h2 {
-  color: #183b4e;
-  font-size: clamp(25px, 3vw, 36px);
-  letter-spacing: 0.5px;
-  position: relative;
-  padding-bottom: 12px;
-}
-
-.predlozheni h2::after {
-  content: "";
-  display: block;
-  width: 65px;
-  height: 4px;
-  margin: 12px auto 0;
-  border-radius: 10px;
-  background: linear-gradient(90deg, #42b8d5, #65c98a);
-}
-
-/* Плавно движение на продуктите */
-.produkt-scroll {
-  scroll-snap-type: x mandatory;
-  overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
-  cursor: grab;
-}
-
-.produkt-scroll:active {
-  cursor: grabbing;
-}
-
-/* Самите кутийки */
-.produkt {
-  border: 1px solid #dcebf0;
-  border-radius: 18px;
-  background: linear-gradient(
-    160deg,
-    #ffffff 65%,
-    #f3fbfd 100%
-  );
-  box-shadow: 0 5px 15px rgba(32, 91, 112, 0.08);
-  scroll-snap-align: start;
-  position: relative;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
-}
-
-/* Цветен акцент в горната част */
-.produkt::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #45b9d6, #79d6a0);
-  z-index: 1;
-}
-
-/* По-жив ефект при посочване */
-.produkt:hover {
-  transform: translateY(-7px);
-  border-color: #8bd5e5;
-  box-shadow: 0 12px 28px rgba(32, 91, 112, 0.16);
-}
-
-/* Снимка */
-.produkt img {
-  transition: transform 0.4s ease;
-}
-
-.produkt:hover img {
-  transform: scale(1.04);
-}
-
-/* Информация за продукта */
-.produkt h3 {
-  color: #214b5d;
-  line-height: 1.3;
-  transition: color 0.2s ease;
-}
-
-.produkt:hover h3 {
-  color: #218da9;
-}
-
-.produkt p {
-  line-height: 1.5;
-  color: #526873;
-}
-
-/* Цена */
-.produkt .produkt-cena {
-  color: #18845b;
-  font-weight: bold;
-  font-size: 20px;
-}
-
-/* По-удобни размери на телефон */
-@media (max-width: 599px) {
-  .predlozheni {
-    border-radius: 16px;
-    padding-top: 24px;
-  }
-
-  .produkt-scroll {
-    gap: 14px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .produkt {
-    flex-basis: 200px;
-  }
-}
-
-/* По-изразен ефект на устройства с мишка */
-@media (hover: hover) and (pointer: fine) {
-  .produkt:hover {
-    transform: translateY(-7px);
-  }
-}
-
-/* Достъпност: без излишна анимация за хора,
-   които са изключили анимационните ефекти */
-@media (prefers-reduced-motion: reduce) {
-  .produkt,
-  .produkt img,
-  .produkt h3 {
-    transition: none;
-  }
-}
-
-
-
-/* === ВИЗУАЛЕН ОБЕМ НА СЕКЦИЯТА === */
-
-.predlozheni {
-  isolation: isolate;
-  position: relative;
-  border-radius: 28px;
-  background:
-    radial-gradient(
-      ellipse at 5% 15%,
-      rgba(108, 211, 232, 0.24),
-      transparent 35%
-    ),
-    radial-gradient(
-      ellipse at 95% 85%,
-      rgba(126, 218, 158, 0.22),
-      transparent 38%
-    ),
-    linear-gradient(
-      135deg,
-      #f5fcff,
-      #ffffff 48%,
-      #f2fff6
-    );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 12px 35px rgba(43, 106, 126, 0.08);
-}
-
-/* Големи декоративни кръгове зад съдържанието */
-.predlozheni::before,
-.predlozheni::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.predlozheni::before {
-  width: 230px;
-  height: 230px;
-  top: 65px;
-  right: -65px;
-  border: 1px solid rgba(69, 185, 214, 0.22);
-  box-shadow:
-    0 0 0 22px rgba(69, 185, 214, 0.035),
-    0 0 0 45px rgba(69, 185, 214, 0.025);
-}
-
-.predlozheni::after {
-  width: 150px;
-  height: 150px;
-  bottom: -35px;
-  left: -35px;
-  background: radial-gradient(
-    circle at 35% 35%,
-    rgba(126, 218, 158, 0.22),
-    rgba(126, 218, 158, 0.02) 70%
-  );
-}
-
-/* Заглавието изпъква над фона */
-.predlozheni h2 {
-  position: relative;
-  z-index: 1;
-  text-shadow: 0 2px 0 rgba(255, 255, 255, 0.9);
-}
-
-/* Леко усещане за дълбочина на продуктовия ред */
-.produkt-scroll {
-  position: relative;
-  z-index: 1;
-  padding-top: 18px;
-  padding-bottom: 30px;
-}
-
-/* Кутийките да изглеждат като отделни обекти */
-.produkt {
-  box-shadow:
-    0 3px 0 #e0edf0,
-    0 8px 18px rgba(31, 83, 101, 0.10);
-  transform: translateY(0);
-}
-
-/* По-осезаемо повдигане при посочване */
-.produkt:hover {
-  transform: translateY(-8px) scale(1.015);
-  box-shadow:
-    0 4px 0 #d5e9ed,
-    0 18px 30px rgba(31, 83, 101, 0.17);
-}
-
-/* Малък отблясък върху снимките */
-.produkt-snimka {
-  overflow: hidden;
-  position: relative;
-}
-
-.produkt-snimka::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.18),
-    transparent 45%
-  );
-  pointer-events: none;
-}
-
-/* Изчистен бял дизайн с лек релеф */
-
-.predlozheni {
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.035);
-}
-
-.predlozheni h2 {
-  color: #263b45;
-  font-weight: normal;
-}
-
-/* Продуктови кутийки */
-
-.produkt {
-  background: #ffffff;
   border: 1px solid #e8edf0;
   border-radius: 14px;
+
+  background: #ffffff;
+  overflow: hidden;
 
   box-shadow:
     0 2px 4px rgba(0, 0, 0, 0.025),
     0 6px 14px rgba(0, 0, 0, 0.045);
+
+  scroll-snap-align: start;
 
   transition:
     transform 0.25s ease,
@@ -356,7 +69,6 @@
 
 .produkt:hover {
   transform: translateY(-3px);
-
   border-color: #d5e5eb;
 
   box-shadow:
@@ -364,9 +76,13 @@
     0 10px 20px rgba(0, 0, 0, 0.075);
 }
 
-/* Снимката остава чиста */
+/* ===== СНИМКА ===== */
 
 .produkt img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+
   transition: transform 0.3s ease;
 }
 
@@ -374,19 +90,92 @@
   transform: scale(1.02);
 }
 
-/* Текст */
+/* ===== ТЕКСТ ===== */
 
 .produkt h3 {
+  margin: 12px;
+  font-size: 18px;
+  line-height: 1.3;
   color: #263b45;
   font-weight: normal;
 }
 
 .produkt p {
+  margin: 12px;
+  font-size: 17px;
+  line-height: 1.5;
   color: #66757c;
 }
 
 .produkt .produkt-cena {
   color: #263b45;
+  font-size: 20px;
   font-weight: bold;
 }
 
+/* ===== МОБИЛНА ВЕРСИЯ ===== */
+
+@media (max-width: 599px) {
+  .predlozheni {
+    height: 500px;
+    padding: 20px 0;
+    border-radius: 12px;
+  }
+
+  .predlozheni h2 {
+    font-size: 25px;
+    margin-bottom: 16px;
+    padding: 0 12px;
+  }
+
+  .produkt-scroll {
+    gap: 14px;
+    padding: 10px 16px 25px;
+  }
+
+  .produkt {
+    flex: 0 0 200px;
+    height: 340px;
+    border-radius: 12px;
+  }
+
+  .produkt img {
+    height: 165px;
+  }
+
+  .produkt h3 {
+    font-size: 17px;
+    margin: 10px;
+  }
+
+  .produkt p {
+    font-size: 15px;
+    margin: 10px;
+  }
+
+  .produkt .produkt-cena {
+    font-size: 19px;
+  }
+
+  /* Без ефект от мишка върху телефон */
+  .produkt:hover {
+    transform: none;
+  }
+
+  .produkt:hover img {
+    transform: none;
+  }
+}
+
+/* ===== ДОСТЪПНОСТ ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .produkt,
+  .produkt img {
+    transition: none;
+  }
+
+  .produkt-scroll {
+    scroll-behavior: auto;
+  }
+}
