@@ -179,3 +179,22 @@
     scroll-behavior: auto;
   }
 }
+
+
+
+
+
+.produkt {
+  display: flex;
+  flex-direction: column;
+}
+
+.produkt-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.produkt-cena {
+  margin-top: auto;
+}
