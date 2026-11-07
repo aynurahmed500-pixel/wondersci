@@ -41,12 +41,6 @@ body {
     letter-spacing: 2px;
 }
 
-.catalog-header h1 {
-    color: #246da8;
-    font-size: 38px;
-    margin: 15px 0;
-}
-
 .intro {
     color: #60778a;
     font-size: 18px;
@@ -309,14 +303,6 @@ body {
 
     .catalog-page {
         margin-top: 10px;
-    }
-
-    .catalog-header {
-        padding: 25px 5px;
-    }
-
-    .catalog-header h1 {
-        font-size: 30px;
     }
 
     .intro {
