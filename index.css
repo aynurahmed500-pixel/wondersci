@@ -198,3 +198,33 @@
 .produkt-cena {
   margin-top: auto;
 }
+
+
+
+
+.produkt {
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  box-sizing: border-box;
+}
+
+.produkt-snimka {
+  flex-shrink: 0;
+}
+
+.produkt-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.produkt-opisanie {
+  margin-bottom: 0;
+}
+
+.produkt-cena {
+  margin-top: auto;
+  padding-top: 12px;
+}
