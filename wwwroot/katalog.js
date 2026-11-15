@@ -36,7 +36,8 @@ const categoryNames = {
 
 let selectedCategory = "all";
 let favorites = [];
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("wondersci_cart")) || [];
+
 
 // Взимаме продуктите от C# сървъра (/products)
 async function loadProductsFromMySQL() {
@@ -190,6 +191,7 @@ function renderProducts() {
                     quantity: 1
                 });
             }
+localStorage.setItem("wondersci_cart", JSON.stringify(cart));
 
             addButton.textContent = "✓ Добавен";
             window.setTimeout(() => {
@@ -235,3 +237,7 @@ resetFilters.addEventListener("click", () => {
 
 // Зареждаме данните от базата при отваряне на страницата
 loadProductsFromMySQL();
+
+function kolichka() {
+    window.location.href = "kolichka.html";
+}

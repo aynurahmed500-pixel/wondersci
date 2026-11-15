@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оформяне на поръчка | WonderSci</title>
+  <link rel="icon" type="image/png" href="https://imgur.com">
+  <link rel="stylesheet" href="./kolichka.css">
+  <link rel="stylesheet" href="./poruchvane.css">
+  <script src="./poruchvane.js" defer></script>
+</head>
+<body>
+  <main class="cart-page">
+    <h1>Оформяне на поръчка</h1>
+    <p class="intro">Попълни данните си за доставка с наложен платеж.</p>
+
+    <div class="cart-layout">
+      <section class="cart-products">
+        <h2>Данни за доставка</h2>
+
+        <form id="orderForm" class="order-form">
+          <label for="customerName">Име и фамилия *</label>
+          <input type="text" id="customerName" required placeholder="Иван Иванов">
+
+          <label for="phone">Телефон *</label>
+          <input type="tel" id="phone" required placeholder="0888 123 456">
+
+          <label for="address">Град и адрес / офис на куриер *</label>
+          <input type="text" id="address" required placeholder="гр. София, офис Еконт Център">
+
+          <button type="submit" id="submitOrderBtn" class="submit-order-btn">
+            Потвърди поръчката
+          </button>
+        </form>
+
+        <a class="back-link" href="./kolichka.html">
+          ← Обратно към количката
+        </a>
+      </section>
+
+      <aside class="cart-summary">
+        <h2>Твоята поръчка</h2>
+        <div id="orderSummaryItems" class="summary-items-list"></div>
+        <hr>
+        <div class="summary-line total-line">
+          <strong>Общо за плащане</strong>
+          <strong id="orderTotal">0,00 лв.</strong>
+        </div>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>

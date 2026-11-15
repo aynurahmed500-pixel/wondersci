@@ -1,26 +1,15 @@
-
 const cartItems = document.getElementById("cartItems");
 const emptyCart = document.getElementById("emptyCart");
 const subtotalDisplay = document.getElementById("subtotal");
 const totalDisplay = document.getElementById("total");
 const checkoutButton = document.getElementById("checkoutButton");
 
-// Примерни продукти за първоначалния дизайн.
-// По-късно ще свържем количката с каталога.
-let cart = [
-  {
-    id: 1,
-    name: "Комплект „Малък химик“",
-    price: 12.90,
-    quantity: 1
-  },
-  {
-    id: 2,
-    name: "Комплект „Тайните на растенията“",
-    price: 9.90,
-    quantity: 2
-  }
-];
+// Четем истинските добавени продукти от браузъра
+let cart = JSON.parse(localStorage.getItem("wondersci_cart")) || [];
+
+function saveCart() {
+  localStorage.setItem("wondersci_cart", JSON.stringify(cart));
+}
 
 function formatPrice(price) {
   return price.toFixed(2).replace(".", ",") + " лв.";
@@ -77,6 +66,7 @@ function renderCart() {
       }
 
       product.quantity = newQuantity;
+      saveCart();
       renderCart();
     });
 
@@ -89,6 +79,7 @@ function renderCart() {
 
     removeButton.addEventListener("click", () => {
       cart = cart.filter(item => item.id !== product.id);
+      saveCart();
       renderCart();
     });
 
@@ -117,8 +108,7 @@ function renderCart() {
 checkoutButton.addEventListener("click", () => {
   if (cart.length === 0) return;
 
-  // Временно пренасочване към страницата за оформяне на поръчка.
-  window.location.href = "./poruchki.html";
+  window.location.href = "./poruchvane.html";
 });
 
 renderCart();

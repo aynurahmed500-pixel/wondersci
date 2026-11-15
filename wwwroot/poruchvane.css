@@ -1,0 +1,45 @@
+.order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.order-form label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.order-form input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.order-form input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.submit-order-btn {
+  margin-top: 10px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submit-order-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.summary-items-list p {
+  margin: 8px 0;
+  font-size: 0.95rem;
+}

@@ -1,27 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "6L8uEn2l85o=",
+  "dgSpecHash": "xZXb6AxJsww=",
   "success": true,
   "projectFilePath": "/workspaces/wondersci/wondersci.csproj",
   "expectedPackageFiles": [
-    "/home/codespace/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.1/microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
-    "/home/codespace/.nuget/packages/mysqlconnector/2.3.7/mysqlconnector.2.3.7.nupkg.sha512",
+    "/home/codespace/.nuget/packages/microsoft.data.sqlite/8.0.0/microsoft.data.sqlite.8.0.0.nupkg.sha512",
+    "/home/codespace/.nuget/packages/microsoft.data.sqlite.core/8.0.0/microsoft.data.sqlite.core.8.0.0.nupkg.sha512",
+    "/home/codespace/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.6/sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
+    "/home/codespace/.nuget/packages/sqlitepclraw.core/2.1.6/sqlitepclraw.core.2.1.6.nupkg.sha512",
+    "/home/codespace/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.6/sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",
+    "/home/codespace/.nuget/packages/sqlitepclraw.provider.e_sqlite3/2.1.6/sqlitepclraw.provider.e_sqlite3.2.1.6.nupkg.sha512",
+    "/home/codespace/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.netcore.app.ref/8.0.33/microsoft.netcore.app.ref.8.0.33.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.33/microsoft.aspnetcore.app.ref.8.0.33.nupkg.sha512",
     "/home/codespace/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.33/microsoft.netcore.app.host.linux-x64.8.0.33.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1902",
-      "level": "Warning",
-      "message": "Package 'MySqlConnector' 2.3.7 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-473q-m89c-ghf8",
-      "projectPath": "/workspaces/wondersci/wondersci.csproj",
-      "warningLevel": 1,
-      "filePath": "/workspaces/wondersci/wondersci.csproj",
-      "libraryId": "MySqlConnector",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }
