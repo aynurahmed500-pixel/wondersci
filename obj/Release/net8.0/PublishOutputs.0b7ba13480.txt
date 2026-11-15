@@ -1,0 +1,5 @@
+/workspaces/wondersci/bin/Release/net8.0/publish/wondersci
+/workspaces/wondersci/bin/Release/net8.0/publish/wondersci.dll
+/workspaces/wondersci/bin/Release/net8.0/publish/wondersci.deps.json
+/workspaces/wondersci/bin/Release/net8.0/publish/wondersci.runtimeconfig.json
+/workspaces/wondersci/bin/Release/net8.0/publish/wondersci.pdb

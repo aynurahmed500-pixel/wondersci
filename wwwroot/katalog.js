@@ -24,69 +24,44 @@ const noProducts = document.getElementById("noProducts");
 const categoryButtons = document.querySelectorAll(".category-button");
 const resetFilters = document.getElementById("resetFilters");
 
-// Примерни продукти за демонстрацията.
-const products = [
-    {
-        id: 1,
-        name: "Малък химик",
-        category: "chemistry",
-        categoryName: "Химия",
-        description: "Запознай се с интересни химични реакции чрез образователни експерименти.",
-        price: 12.90,
-        image: "🧪"
-    },
-    {
-        id: 2,
-        name: "Тайните на растенията",
-        category: "nature",
-        categoryName: "Природа",
-        description: "Наблюдавай развитието на растенията и открий какво им е необходимо.",
-        price: 9.90,
-        image: "🌱"
-    },
-    {
-        id: 3,
-        name: "Кристален свят",
-        category: "crystals",
-        categoryName: "Кристали",
-        description: "Научи повече за кристалите и начина, по който се образуват.",
-        price: 14.50,
-        image: "💎"
-    },
-    {
-        id: 4,
-        name: "Цветна лаборатория",
-        category: "chemistry",
-        categoryName: "Химия",
-        description: "Изследвай цветовете и свойствата на различни безопасни индикатори.",
-        price: 11.50,
-        image: "🌈"
-    },
-    {
-        id: 5,
-        name: "Малки откриватели",
-        category: "nature",
-        categoryName: "Природа",
-        description: "Открий интересни природни явления и научи повече за живия свят.",
-        price: 8.90,
-        image: "🔍"
-    },
-    {
-        id: 6,
-        name: "Светът на физиката",
-        category: "physics",
-        categoryName: "Физика",
-        description: "Запознай се с основни физични явления чрез демонстрационни модели.",
-        price: 15.90,
-        image: "⚙️"
-    }
-];
+// Тук ще се заредят истинските продукти от MySQL
+let products = [];
+
+const categoryNames = {
+    chemistry: "Химия",
+    nature: "Природа",
+    crystals: "Кристали",
+    physics: "Физика"
+};
 
 let selectedCategory = "all";
-
-// Временни списъци в паметта на страницата.
 let favorites = [];
 let cart = [];
+
+// Взимаме продуктите от C# сървъра (/products)
+async function loadProductsFromMySQL() {
+    try {
+        const response = await fetch("/products");
+        const data = await response.json();
+
+        products = data.map(p => {
+            const catKey = (p.category || "").toLowerCase();
+            return {
+                id: p.id,
+                name: p.name,
+                category: catKey,
+                categoryName: categoryNames[catKey] || p.category || "Наука",
+                description: p.description || "",
+                price: Number(p.price),
+                image: p.image || "🧪"
+            };
+        });
+
+        renderProducts();
+    } catch (error) {
+        console.error("Грешка при връзка с MySQL:", error);
+    }
+}
 
 function formatPrice(price) {
     return price.toFixed(2).replace(".", ",") + " лв.";
@@ -140,9 +115,18 @@ function renderProducts() {
         const imageBox = document.createElement("div");
         imageBox.className = "product-image";
 
-        const image = document.createElement("span");
-        image.textContent = product.image;
-        image.setAttribute("aria-hidden", "true");
+        // Ако в базата има линк към снимка (http...), показва снимка, иначе емоджи
+        if (product.image.startsWith("http") || product.image.includes(".")) {
+            const img = document.createElement("img");
+            img.src = product.image;
+            img.alt = product.name;
+            imageBox.append(img);
+        } else {
+            const image = document.createElement("span");
+            image.textContent = product.image;
+            image.setAttribute("aria-hidden", "true");
+            imageBox.append(image);
+        }
 
         const favoriteButton = document.createElement("button");
         favoriteButton.type = "button";
@@ -167,7 +151,7 @@ function renderProducts() {
             renderProducts();
         });
 
-        imageBox.append(image, favoriteButton);
+        imageBox.append(favoriteButton);
 
         const category = document.createElement("div");
         category.className = "product-category";
@@ -249,4 +233,5 @@ resetFilters.addEventListener("click", () => {
     renderProducts();
 });
 
-renderProducts();
+// Зареждаме данните от базата при отваряне на страницата
+loadProductsFromMySQL();
