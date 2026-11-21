@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  wondersci-api-service:
+    build: .
+    container_name: wondersci-core-service
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./wondersci.db:/app/wondersci.db
+    restart: unless-stopped

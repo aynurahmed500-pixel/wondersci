@@ -1,7 +1,10 @@
 function toggleMenu() {
-  var menu = document.getElementById("menu");
-  menu.classList.toggle("active");
+    const menu = document.getElementById("menu");
+    if (menu) {
+        menu.classList.toggle("active");
+    }
 }
+
 const elements = document.querySelectorAll(".fade-in");
 
 const observer = new IntersectionObserver((entries) => {
@@ -24,7 +27,6 @@ const noProducts = document.getElementById("noProducts");
 const categoryButtons = document.querySelectorAll(".category-button");
 const resetFilters = document.getElementById("resetFilters");
 
-// Тук ще се заредят истинските продукти от MySQL
 let products = [];
 
 const categoryNames = {
@@ -35,26 +37,42 @@ const categoryNames = {
 };
 
 let selectedCategory = "all";
-let favorites = [];
-let cart = JSON.parse(localStorage.getItem("wondersci_cart")) || [];
 
+function getStorageData(key) {
+    try {
+        return JSON.parse(localStorage.getItem(key)) || [];
+    } catch (e) {
+        console.error(`Грешка при четене от localStorage за ${key}:`, e);
+        return [];
+    }
+}
 
-// Взимаме продуктите от C# сървъра (/products)
+let favorites = getStorageData("wondersci_favorites");
+let cart = getStorageData("wondersci_cart");
+
 async function loadProductsFromMySQL() {
+    if (!productsGrid) return;
+
     try {
         const response = await fetch("/products");
+        if (!response.ok) {
+            throw new Error(`HTTP грешка: ${response.status}`);
+        }
         const data = await response.json();
 
-        products = data.map(p => {
-            const catKey = (p.category || "").toLowerCase();
+        products = data.map((p, index) => {
+            const rawCat = p.category || p.Category || "";
+            const catKey = rawCat.toLowerCase();
+            const prodName = p.name || p.Name || `Продукт ${index + 1}`;
+            
             return {
-                id: p.id,
-                name: p.name,
+                id: String(p.id ?? p.Id ?? p.ID ?? p.product_id ?? prodName),
+                name: prodName,
                 category: catKey,
-                categoryName: categoryNames[catKey] || p.category || "Наука",
-                description: p.description || "",
-                price: Number(p.price),
-                image: p.image || "🧪"
+                categoryName: categoryNames[catKey] || rawCat || "Наука",
+                description: p.description || p.Description || "",
+                price: Number(p.price ?? p.Price) || 0,
+                image: p.image || p.Image || "🧪"
             };
         });
 
@@ -65,11 +83,11 @@ async function loadProductsFromMySQL() {
 }
 
 function formatPrice(price) {
-    return price.toFixed(2).replace(".", ",") + " лв.";
+    return Number(price).toFixed(2).replace(".", ",") + " лв.";
 }
 
 function getVisibleProducts() {
-    const searchTerm = productSearch.value.trim().toLowerCase();
+    const searchTerm = productSearch ? productSearch.value.trim().toLowerCase() : "";
 
     let visibleProducts = products.filter(product => {
         const matchesCategory =
@@ -84,7 +102,7 @@ function getVisibleProducts() {
         return matchesCategory && matchesSearch;
     });
 
-    const sortValue = sortProducts.value;
+    const sortValue = sortProducts ? sortProducts.value : "default";
 
     if (sortValue === "price-asc") {
         visibleProducts.sort((a, b) => a.price - b.price);
@@ -98,15 +116,21 @@ function getVisibleProducts() {
 }
 
 function renderProducts() {
+    if (!productsGrid) return;
+
     productsGrid.replaceChildren();
 
     const visibleProducts = getVisibleProducts();
 
-    productsCount.textContent =
-        visibleProducts.length +
-        (visibleProducts.length === 1 ? " продукт" : " продукта");
+    if (productsCount) {
+        productsCount.textContent =
+            visibleProducts.length +
+            (visibleProducts.length === 1 ? " продукт" : " продукта");
+    }
 
-    noProducts.hidden = visibleProducts.length !== 0;
+    if (noProducts) {
+        noProducts.hidden = visibleProducts.length !== 0;
+    }
     productsGrid.hidden = visibleProducts.length === 0;
 
     visibleProducts.forEach(product => {
@@ -116,15 +140,15 @@ function renderProducts() {
         const imageBox = document.createElement("div");
         imageBox.className = "product-image";
 
-        // Ако в базата има линк към снимка (http...), показва снимка, иначе емоджи
-        if (product.image.startsWith("http") || product.image.includes(".")) {
+        const imgSrc = product.image || "🧪";
+        if (imgSrc.startsWith("http") || /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(imgSrc)) {
             const img = document.createElement("img");
-            img.src = product.image;
+            img.src = imgSrc;
             img.alt = product.name;
             imageBox.append(img);
         } else {
             const image = document.createElement("span");
-            image.textContent = product.image;
+            image.textContent = imgSrc;
             image.setAttribute("aria-hidden", "true");
             imageBox.append(image);
         }
@@ -133,7 +157,7 @@ function renderProducts() {
         favoriteButton.type = "button";
         favoriteButton.className = "favorite-button";
 
-        const isFavorite = favorites.includes(product.id);
+        const isFavorite = favorites.some(item => String(item.id) === String(product.id));
 
         favoriteButton.classList.toggle("is-favorite", isFavorite);
         favoriteButton.textContent = isFavorite ? "♥" : "♡";
@@ -143,12 +167,16 @@ function renderProducts() {
         );
 
         favoriteButton.addEventListener("click", () => {
-            if (favorites.includes(product.id)) {
-                favorites = favorites.filter(id => id !== product.id);
+            favorites = getStorageData("wondersci_favorites");
+            const exists = favorites.some(item => String(item.id) === String(product.id));
+
+            if (exists) {
+                favorites = favorites.filter(item => String(item.id) !== String(product.id));
             } else {
-                favorites.push(product.id);
+                favorites.push(product);
             }
 
+            localStorage.setItem("wondersci_favorites", JSON.stringify(favorites));
             renderProducts();
         });
 
@@ -179,7 +207,8 @@ function renderProducts() {
         addButton.textContent = "🛒 Добави";
 
         addButton.addEventListener("click", () => {
-            const existingProduct = cart.find(item => item.id === product.id);
+            cart = getStorageData("wondersci_cart");
+            const existingProduct = cart.find(item => String(item.id) === String(product.id));
 
             if (existingProduct) {
                 existingProduct.quantity += 1;
@@ -188,10 +217,11 @@ function renderProducts() {
                     id: product.id,
                     name: product.name,
                     price: product.price,
+                    image: product.image,
                     quantity: 1
                 });
             }
-localStorage.setItem("wondersci_cart", JSON.stringify(cart));
+            localStorage.setItem("wondersci_cart", JSON.stringify(cart));
 
             addButton.textContent = "✓ Добавен";
             window.setTimeout(() => {
@@ -220,24 +250,34 @@ categoryButtons.forEach(button => {
     });
 });
 
-productSearch.addEventListener("input", renderProducts);
-sortProducts.addEventListener("change", renderProducts);
+if (productSearch) {
+    productSearch.addEventListener("input", renderProducts);
+}
 
-resetFilters.addEventListener("click", () => {
-    productSearch.value = "";
-    sortProducts.value = "default";
-    selectedCategory = "all";
+if (sortProducts) {
+    sortProducts.addEventListener("change", renderProducts);
+}
 
-    categoryButtons.forEach(button => {
-        button.classList.toggle("active", button.dataset.category === "all");
+if (resetFilters) {
+    resetFilters.addEventListener("click", () => {
+        if (productSearch) productSearch.value = "";
+        if (sortProducts) sortProducts.value = "default";
+        selectedCategory = "all";
+
+        categoryButtons.forEach(button => {
+            button.classList.toggle("active", button.dataset.category === "all");
+        });
+
+        renderProducts();
     });
+}
 
-    renderProducts();
-});
-
-// Зареждаме данните от базата при отваряне на страницата
 loadProductsFromMySQL();
 
 function kolichka() {
     window.location.href = "kolichka.html";
+}
+
+function surce() {
+    window.location.href = "lyubimi.html";
 }

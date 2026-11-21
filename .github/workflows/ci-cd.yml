@@ -1,0 +1,29 @@
+name: WonderSci CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Изтегляне на кода (Checkout)
+      uses: actions/checkout@v4
+
+    - name: Настройка на .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Възстановяване на пакетите (Restore)
+      run: dotnet restore
+
+    - name: Компилиране на сървъра (Build)
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Проверка на Docker образа
+      run: docker build -t wondersci-app .

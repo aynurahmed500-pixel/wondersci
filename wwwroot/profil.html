@@ -1,12 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="bg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Профил | WonderSci</title>
-    <link rel="icon" type="image/png"
-          href="https://i.imgur.com/lqiHIvR.png">
+    <link rel="icon" type="image/png" href="https://imgur.com">
     <link rel="stylesheet" href="obsht.css">
     <link rel="stylesheet" href="profil.css">
     <script src="profil.js" defer></script>
@@ -26,13 +24,13 @@
             </div>
             <div id="searchResults"></div>
             <div class="lyubimi" onclick="surce()">
-                <img class="heart" src="https://i.imgur.com/Ui8U71s.png" alt="Любими">
+                <img class="heart" src="https://imgur.com" alt="Любими">
             </div>
             <div class="pazaruvane" onclick="kolichka()">
-                <img class="kolichka" src="https://i.imgur.com/ozZp2i3.png" alt="Количка">
+                <img class="kolichka" src="https://imgur.com" alt="Количка">
             </div>
             <div class="profil" onclick="ikona()">
-                <img class="profil-snimka" src="https://i.imgur.com/FnlG9qk.png" alt="Профил">
+                <img class="profil-snimka" src="https://imgur.com" alt="Профил">
             </div>
         </div>
         <div class="menu" id="menu">
@@ -46,36 +44,111 @@
             <a href="contacti.html">Контакти</a>
         </div>
     </nav>
+
     <main class="profile-page">
         <header class="page-header">
             <h1>Моят профил</h1>
             <p>Добре дошъл в своя свят на научни открития!</p>
         </header>
-        <div class="profile-layout">
+
+        <!-- Секция за Вход и Регистрация -->
+        <section class="profile-card" id="authSection">
+            <div class="form-actions">
+                <button type="button" id="tabLogin" class="save-button">Вход</button>
+                <button type="button" id="tabRegister" class="cancel-button">Регистрация</button>
+            </div>
+
+            <form id="authForm" class="form-grid">
+                <div class="form-field" id="regFirstNameField" hidden>
+                    <label for="authFirstName">Име *</label>
+                    <input type="text" id="authFirstName" placeholder="Иван">
+                </div>
+                <div class="form-field" id="regLastNameField" hidden>
+                    <label for="authLastName">Фамилия *</label>
+                    <input type="text" id="authLastName" placeholder="Иванов">
+                </div>
+                <div class="form-field full-width">
+                    <label for="authEmail">Имейл адрес *</label>
+                    <input type="email" id="authEmail" required placeholder="ivan@example.com">
+                </div>
+                <div class="form-field full-width">
+                    <label for="authPassword">Парола *</label>
+                    <input type="password" id="authPassword" required placeholder="••••••••">
+                </div>
+                <div class="form-field full-width">
+                    <button type="submit" id="authSubmitBtn" class="save-button">Влез в профила</button>
+                </div>
+            </form>
+            <p id="authMessage" class="status-message" role="status"></p>
+        </section>
+
+        <!-- Секция с данните на влезлия потребител -->
+        <div class="profile-layout" id="profileLayout" hidden>
             <aside class="profile-sidebar">
                 <div class="avatar" id="avatar">И</div>
                 <h2 id="sidebarName">Иван Иванов</h2>
                 <p id="sidebarEmail">ivan@example.com</p>
                 <nav class="profile-nav">
-                    <a href="#personalInfo" class="active"> Лични данни </a>
-                    <a href="poruchki.html"> Моите поръчки </a>
-                    <a href="lyubimi.html"> Любими продукти </a>
-                    <a href="#settings"> Настройки </a>
+                    <a href="#personalInfo" class="active">Лични данни</a>
+                    <a href="poruchki.html">Моите поръчки</a>
+                    <a href="lyubimi.html">Любими продукти</a>
+                    <a href="#settings">Настройки</a>
                 </nav>
-                <button type="button" id="logoutButton" class="logout-button"> Изход от профила </button>
+                <button type="button" id="logoutButton" class="logout-button">Изход от профила</button>
             </aside>
+
             <div class="profile-content">
+                                <section class="profile-card" id="adminPanel" hidden>
+                    <h2>Админ панел — Управление на магазина</h2>
+                    <p class="settings-description">Добавяй нови продукти, изтривай продукти или приключвай поръчки.</p>
+                    <form id="addProductForm" class="form-grid">
+                        <div class="form-field">
+                            <label for="prodName">Име на продукта *</label>
+                            <input type="text" id="prodName" required placeholder="Напр. Домашна ракета">
+                        </div>
+                        <div class="form-field">
+                            <label for="prodPrice">Цена (лв.) *</label>
+                            <input type="number" step="0.01" id="prodPrice" required placeholder="19.90">
+                        </div>
+                        <div class="form-field">
+                            <label for="prodCategory">Категория *</label>
+                            <select id="prodCategory">
+                                <option value="chemistry">Химия</option>
+                                <option value="nature">Природа</option>
+                                <option value="crystals">Кристали</option>
+                                <option value="physics">Физика</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="prodImage">Емоджи или линк към снимка</label>
+                            <input type="text" id="prodImage" placeholder="🚀">
+                        </div>
+                        <div class="form-field full-width">
+                            <label for="prodDescription">Описание *</label>
+                            <input type="text" id="prodDescription" required placeholder="Кратко описание на комплекта...">
+                        </div>
+                        <div class="form-field full-width">
+                            <button type="submit" class="save-button">Добави в каталога</button>
+                        </div>
+                    </form>
+                    <p id="adminMessage" class="status-message" role="status"></p>
+
+                    <hr>
+                    <h3>Продукти в каталога</h3>
+                    <div id="adminProductsList"></div>
+
+                    <hr>
+                    <h3>Поръчки от клиенти</h3>
+                    <div id="adminOrdersList"></div>
+                </section>
+
                 <section class="profile-card" id="personalInfo">
                     <div class="card-heading">
                         <div>
                             <h2>Лична информация</h2>
                             <p>Прегледай и редактирай данните си.</p>
                         </div>
-                        <button
-                            type="button"
-                            id="editButton"
-                            class="edit-button"
-                        >
+                        <button type="button" id="editButton" class="edit-button">
                             Редактирай
                         </button>
                     </div>
@@ -83,65 +156,33 @@
                         <div class="form-grid">
                             <div class="form-field">
                                 <label for="firstName">Име</label>
-                                <input
-                                    type="text"
-                                    id="firstName"
-                                    value="Иван"
-                                    disabled
-                                    required
-                                >
+                                <input type="text" id="firstName" value="Иван" disabled required>
                             </div>
                             <div class="form-field">
                                 <label for="lastName">Фамилия</label>
-                                <input
-                                    type="text"
-                                    id="lastName"
-                                    value="Иванов"
-                                    disabled
-                                    required
-                                >
+                                <input type="text" id="lastName" value="Иванов" disabled required>
                             </div>
                             <div class="form-field full-width">
                                 <label for="email">Имейл адрес</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    value="ivan@example.com"
-                                    disabled
-                                    required
-                                >
+                                <input type="email" id="email" value="ivan@example.com" disabled required>
                             </div>
                             <div class="form-field full-width">
-                                <label for="phone">
-                                    Телефон (по желание)
-                                </label>
-                                <input
-                                    type="tel"
-                                    id="phone"
-                                    placeholder="Въведи телефон"
-                                    disabled
-                                >
+                                <label for="phone">Телефон (по желание)</label>
+                                <input type="tel" id="phone" placeholder="Въведи телефон" disabled>
                             </div>
                         </div>
                         <div class="form-actions" id="formActions" hidden>
                             <button type="submit" class="save-button">
                                 Запази промените
                             </button>
-                            <button
-                                type="button"
-                                id="cancelButton"
-                                class="cancel-button"
-                            >
+                            <button type="button" id="cancelButton" class="cancel-button">
                                 Отказ
                             </button>
                         </div>
-                        <p
-                            id="statusMessage"
-                            class="status-message"
-                            role="status"
-                        ></p>
+                        <p id="statusMessage" class="status-message" role="status"></p>
                     </form>
                 </section>
+
                 <section class="profile-card" id="settings">
                     <h2>Настройки</h2>
                     <p class="settings-description">
@@ -150,42 +191,28 @@
                     <label class="setting-row">
                         <span>
                             <strong>Известия за новини</strong>
-                            <small>
-                                Получавай информация за нови комплекти
-                                и инициативи.
-                            </small>
+                            <small>Получавай информация за нови комплекти и инициативи.</small>
                         </span>
-                        <input
-                            type="checkbox"
-                            id="newsNotifications"
-                        >
+                        <input type="checkbox" id="newsNotifications">
                     </label>
                     <label class="setting-row">
                         <span>
                             <strong>Научни предложения</strong>
-                            <small>
-                                Виж предложения за научни комплекти
-                                и експерименти.
-                            </small>
+                            <small>Виж предложения за научни комплекти и експерименти.</small>
                         </span>
-                        <input
-                            type="checkbox"
-                            id="scienceSuggestions"
-                            checked
-                        >
+                        <input type="checkbox" id="scienceSuggestions" checked>
                     </label>
-                    <button
-                                              id="saveSettings"
-                        class="save-button"
-                    >
+                    <button type="button" id="saveSettings" class="save-button">
                         Запази настройките
                     </button>
                     <p id="settingsMessage" class="status-message" role="status"></p>
                 </section>
             </div>
         </div>
-        <a href="index.html" class="back-link"> ← Към началната страница</a>
+
+        <a href="index.html" class="back-link">← Към началната страница</a>
     </main>
+
     <footer class="dolu">
         <div class="dolu2">
             <p class="centriran" id="WonderSci">WONDERSCI<br>„Науката започва с любопитство.“</p>
@@ -199,12 +226,10 @@
                 <p class="dopulnitelno" id="politika">Политика за поверителност</p>
             </a>
             <a href="plashtane.html">
-                <p class="dopulnitelno" id="plashtane"> Плащане, доставка и връщане</p>
+                <p class="dopulnitelno" id="plashtane">Плащане, доставка и връщане</p>
             </a>
-            <p class="centriran maluk">
-                🧪 Научи. Експериментирай. Откривай.</p>
-            <p class="centriran maluk" id="copyright"> © 2026 WonderSci <br>Всички права запазени.
-            </p>
+            <p class="centriran maluk">🧪 Научи. Експериментирай. Откривай.</p>
+            <p class="centriran maluk" id="copyright">© 2026 WonderSci <br>Всички права запазени.</p>
         </div>
     </footer>
 </body>
