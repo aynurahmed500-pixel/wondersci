@@ -65,4 +65,14 @@ public class StoreLogicTests
         Assert.True(result1.IsFreeShippingEligible);
     }
 
+    [Theory]
+    [InlineData("SCIENCE20", 100.00, 80.00)]
+    [InlineData("INVALID", 100.00, 100.00)]
+    public void ApplyPromoCode_TDD_CalculatesDiscountCorrectly(string code, decimal price, decimal expected)
+    {
+        decimal result = WonderSci.Core.PricingEngine.ApplyPromoCode(price, code);
+        Assert.Equal(expected, result);
+    }
+
+
 }
