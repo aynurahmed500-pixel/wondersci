@@ -44,4 +44,25 @@ public class StoreLogicTests
 
         Assert.True(availableStock >= requestedQuantity);
     }
+        [Fact]
+    public void PricingEngine_PureFunction_IsDeterministicAndVerifiesInvariants()
+    {
+        var items = new[]
+        {
+            new WonderSci.Core.CartLineItem("Вулкан", 30.00m, 2),
+            new WonderSci.Core.CartLineItem("Микроскоп", 50.00m, 1)
+        };
+
+        var result1 = WonderSci.Core.PricingEngine.CalculateOrderPricing(items, isPromoActive: true);
+        var result2 = WonderSci.Core.PricingEngine.CalculateOrderPricing(items, isPromoActive: true);
+
+        // Инвариант 1: Детерминизъм (еднакви входове -> идентичен изход)
+        Assert.Equal(result1, result2);
+
+        // Инвариант 2: Крайната цена винаги е <= началната сума
+        Assert.True(result1.FinalTotal <= result1.Subtotal);
+        Assert.Equal(99.00m, result1.FinalTotal);
+        Assert.True(result1.IsFreeShippingEligible);
+    }
+
 }

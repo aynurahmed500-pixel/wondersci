@@ -343,6 +343,13 @@ app.MapGet("/api/outcomes/summary", async () =>
     return Results.Ok(summary);
 });
 
+// Функционално изчисление на кошницата (Pure Functional Endpoint)
+app.MapPost("/api/pricing/calculate", (List<WonderSci.Core.CartLineItem> items, bool? promo) =>
+{
+    var result = WonderSci.Core.PricingEngine.CalculateOrderPricing(items, promo ?? false);
+    return Results.Ok(result);
+});
+
 
 app.Run();
 
