@@ -25,5 +25,8 @@ jobs:
     - name: Компилиране на сървъра (Build)
       run: dotnet build --no-restore --configuration Release
 
+    - name: Изпълнение на автоматични тестове (xUnit)
+      run: dotnet test WonderSci.Tests --configuration Release
+
     - name: Проверка на Docker образа
       run: docker build -t wondersci-app .
