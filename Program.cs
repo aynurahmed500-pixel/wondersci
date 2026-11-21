@@ -295,6 +295,55 @@ app.MapGet("/api/features", () =>
     });
 });
 
+// Outcome-Driven Development (ODD) - Проследяване на ключови бизнес и образователни резултати
+app.MapPost("/api/outcomes", async (OutcomeEventRequest ev) =>
+{
+    using var connection = new SqliteConnection(connectionString);
+    await connection.OpenAsync();
+    var setup = connection.CreateCommand();
+    setup.CommandText = @"
+        CREATE TABLE IF NOT EXISTS outcome_metrics (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            event_name TEXT NOT NULL,
+            metadata TEXT,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        );";
+    await setup.ExecuteNonQueryAsync();
+
+    var cmd = connection.CreateCommand();
+    cmd.CommandText = "INSERT INTO outcome_metrics (event_name, metadata) VALUES ($name, $meta);";
+    cmd.Parameters.AddWithValue("$name", ev.EventName);
+    cmd.Parameters.AddWithValue("$meta", ev.Metadata ?? "");
+    await cmd.ExecuteNonQueryAsync();
+    return Results.Ok();
+});
+
+app.MapGet("/api/outcomes/summary", async () =>
+{
+    using var connection = new SqliteConnection(connectionString);
+    await connection.OpenAsync();
+    var setup = connection.CreateCommand();
+    setup.CommandText = @"
+        CREATE TABLE IF NOT EXISTS outcome_metrics (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            event_name TEXT NOT NULL,
+            metadata TEXT,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        );";
+    await setup.ExecuteNonQueryAsync();
+
+    var cmd = connection.CreateCommand();
+    cmd.CommandText = "SELECT event_name, COUNT(*) FROM outcome_metrics GROUP BY event_name;";
+    using var reader = await cmd.ExecuteReaderAsync();
+    var summary = new Dictionary<string, int>();
+    while (await reader.ReadAsync())
+    {
+        summary[reader.GetString(0)] = reader.GetInt32(1);
+    }
+    return Results.Ok(summary);
+});
+
+
 app.Run();
 
 record ProductCreateRequest(string Name, string Description, decimal Price, string Image, string Category);
@@ -303,5 +352,7 @@ record OrderRequest(string CustomerName, string Phone, string Address, decimal T
 record RegisterRequest(string FirstName, string LastName, string Email, string Password, string? Role);
 record LoginRequest(string Email, string Password);
 record UpdateUserRequest(string FirstName, string LastName, string Email, string Phone);
+
+record OutcomeEventRequest(string EventName, string? Metadata);
 
 public partial class Program { }

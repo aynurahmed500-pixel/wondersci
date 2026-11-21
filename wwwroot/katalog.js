@@ -222,6 +222,11 @@ function renderProducts() {
                 });
             }
             localStorage.setItem("wondersci_cart", JSON.stringify(cart));
+fetch("/api/outcomes", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ eventName: "product_added_to_cart", metadata: product.name })
+}).catch(() => {});
 
             addButton.textContent = "✓ Добавен";
             window.setTimeout(() => {
