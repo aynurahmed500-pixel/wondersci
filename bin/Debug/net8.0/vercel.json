@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "functions": {
+    "serverless/*.js": {
+      "memory": 128,
+      "maxDuration": 5
+    }
+  },
+  "routes": [
+    {
+      "src": "/faas/daily-fact",
+      "dest": "/serverless/dailyScienceFact.js"
+    }
+  ]
+}

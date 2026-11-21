@@ -129,3 +129,4 @@
 /workspaces/wondersci/WonderSci.Tests/bin/Debug/net8.0/runtimes/win-x86/native/e_sqlite3.dll
 /workspaces/wondersci/WonderSci.Tests/bin/Debug/net8.0/wondersci.dll
 /workspaces/wondersci/WonderSci.Tests/bin/Debug/net8.0/wondersci.pdb
+/workspaces/wondersci/WonderSci.Tests/bin/Debug/net8.0/vercel.json

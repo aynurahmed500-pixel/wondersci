@@ -1,3 +1,5 @@
+#nullable enable
+
 namespace WonderSci.Core;
 
 // Непроменими структури от данни (Immutability - основен принцип на функционалното програмиране)
@@ -39,4 +41,13 @@ public static class PricingEngine
 
         return new PricingResult(subtotal, discount, finalTotal, freeShipping);
     }
+        public static decimal ApplyPromoCode(decimal totalAmount, string? promoCode)
+    {
+        if (string.Equals(promoCode?.Trim(), "SCIENCE20", StringComparison.OrdinalIgnoreCase))
+        {
+            return Math.Round(totalAmount * 0.80m, 2, MidpointRounding.AwayFromZero);
+        }
+        return totalAmount;
+    }
+
 }
