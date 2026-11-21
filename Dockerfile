@@ -1,12 +1,10 @@
-# Етап 1: Компилиране на приложението
-FROM ://microsoft.com AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY . .
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/publish
 
-# Етап 2: Стартиране в лек изолиран контейнер
-FROM ://microsoft.com
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
 EXPOSE 8080
