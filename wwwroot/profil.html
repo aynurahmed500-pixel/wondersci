@@ -75,8 +75,11 @@
                     <label for="authPassword">Парола *</label>
                     <input type="password" id="authPassword" required placeholder="••••••••">
                 </div>
-                <div class="form-field full-width">
+                                    <div class="form-field full-width">
                     <button type="submit" id="authSubmitBtn" class="save-button">Влез в профила</button>
+                    <button type="button" id="forgotPasswordBtn" onclick="resetPasswordFlow()" class="cancel-button" style="margin-top: 8px; width: 100%;">Забравена парола?</button>
+                </div>
+
                 </div>
             </form>
             <p id="authMessage" class="status-message" role="status"></p>

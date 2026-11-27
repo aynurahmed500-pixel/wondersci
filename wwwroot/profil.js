@@ -311,3 +311,27 @@ updateUI();
 });
 }
 updateUI();
+
+async function resetPasswordFlow() {
+    const emailInput = document.getElementById("authEmail");
+    const email = prompt("Въведете вашия имейл адрес:", emailInput ? emailInput.value : "");
+    if (!email) return;
+
+    const newPassword = prompt("Въведете новата си парола (поне 6 символа):");
+    if (!newPassword || newPassword.length < 6) {
+        alert("Паролата трябва да е поне 6 символа.");
+        return;
+    }
+
+    try {
+        const res = await fetch("/api/reset-password", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email.trim(), password: newPassword })
+        });
+        const data = await res.json();
+        alert(data.message);
+    } catch {
+        alert("Грешка при връзка със сървъра.");
+    }
+}

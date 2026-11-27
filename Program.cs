@@ -193,6 +193,45 @@ app.MapGet("/api/orders", async () =>
     return orders;
 });
 
+// Универсална функция за криптиране (SHA-256) на пароли и други чувствителни данни
+static string HashSensitiveData(string input)
+{
+    if (string.IsNullOrEmpty(input)) return "";
+    var bytes = System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(input));
+    return Convert.ToHexString(bytes);
+}
+
+// Автоматично хеширане на съществуващите пароли (запазва админ профила и старите акаунти)
+using (var migrateConn = new SqliteConnection(connectionString))
+{
+    migrateConn.Open();
+    var selectCmd = new SqliteCommand("SELECT id, password FROM users;", migrateConn);
+    using var reader = selectCmd.ExecuteReader();
+    var usersToUpdate = new List<(int Id, string HashedPass)>();
+
+    while (reader.Read())
+    {
+        int id = reader.GetInt32(0);
+        string currentPass = reader.IsDBNull(1) ? "" : reader.GetString(1);
+        // SHA-256 хешът е винаги 64 символа; ако е по-кратък, значи още не е хеширан
+        if (currentPass.Length != 64)
+        {
+            usersToUpdate.Add((id, HashSensitiveData(currentPass)));
+        }
+    }
+    reader.Close();
+
+    foreach (var u in usersToUpdate)
+    {
+        var updateCmd = migrateConn.CreateCommand();
+        updateCmd.CommandText = "UPDATE users SET password = $pass WHERE id = $id;";
+        updateCmd.Parameters.AddWithValue("$pass", u.HashedPass);
+        updateCmd.Parameters.AddWithValue("$id", u.Id);
+        updateCmd.ExecuteNonQuery();
+    }
+}
+
+
 app.MapPost("/api/register", async (RegisterRequest req) =>
 {
     using var connection = new SqliteConnection(connectionString);
@@ -210,7 +249,7 @@ app.MapPost("/api/register", async (RegisterRequest req) =>
         cmd.Parameters.AddWithValue("$fn", req.FirstName);
         cmd.Parameters.AddWithValue("$ln", req.LastName);
         cmd.Parameters.AddWithValue("$email", req.Email);
-        cmd.Parameters.AddWithValue("$pass", req.Password);
+        cmd.Parameters.AddWithValue("$pass", HashSensitiveData(req.Password));
         cmd.Parameters.AddWithValue("$role", role);
 
         var id = Convert.ToInt32(await cmd.ExecuteScalarAsync());
@@ -230,7 +269,7 @@ app.MapPost("/api/login", async (LoginRequest req) =>
     var cmd = connection.CreateCommand();
     cmd.CommandText = "SELECT id, first_name, last_name, email, phone, role FROM users WHERE email = $email AND password = $pass;";
     cmd.Parameters.AddWithValue("$email", req.Email);
-    cmd.Parameters.AddWithValue("$pass", req.Password);
+    cmd.Parameters.AddWithValue("$pass", HashSensitiveData(req.Password));
 
     using var reader = await cmd.ExecuteReaderAsync();
     if (await reader.ReadAsync())
@@ -247,6 +286,23 @@ app.MapPost("/api/login", async (LoginRequest req) =>
 
     return Results.BadRequest(new { message = "Грешен имейл или парола." });
 });
+
+app.MapPost("/api/reset-password", async (LoginRequest req) =>
+{
+    using var connection = new SqliteConnection(connectionString);
+    await connection.OpenAsync();
+    var cmd = connection.CreateCommand();
+    cmd.CommandText = "UPDATE users SET password = $pass WHERE email = $email;";
+    cmd.Parameters.AddWithValue("$email", req.Email);
+    cmd.Parameters.AddWithValue("$pass", HashSensitiveData(req.Password));
+
+    int rows = await cmd.ExecuteNonQueryAsync();
+    if (rows > 0)
+        return Results.Ok(new { message = "Паролата е сменена успешно! Вече можеш да влезеш с новата парола." });
+
+    return Results.BadRequest(new { message = "Не е намерен потребител с този имейл." });
+});
+
 
 app.MapPut("/api/users/{id}", async (int id, UpdateUserRequest req) =>
 {
@@ -350,6 +406,90 @@ app.MapPost("/api/pricing/calculate", (List<WonderSci.Core.CartLineItem> items, 
     return Results.Ok(result);
 });
 
+// Контактна форма - запис в базата данни + директно изпращане на имейл
+app.MapPost("/api/contact", async (ContactMessageRequest msg) =>
+{
+    if (string.IsNullOrWhiteSpace(msg.Name) || string.IsNullOrWhiteSpace(msg.Email) || string.IsNullOrWhiteSpace(msg.Message))
+        return Results.BadRequest(new { message = "Моля, попълнете всички полета." });
+
+    // 1. Запис в SQLite базата данни
+    using var connection = new SqliteConnection(connectionString);
+    await connection.OpenAsync();
+    var setup = connection.CreateCommand();
+    setup.CommandText = @"
+        CREATE TABLE IF NOT EXISTS contact_messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            sender_name TEXT NOT NULL,
+            sender_email TEXT NOT NULL,
+            message_text TEXT NOT NULL,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        );";
+    await setup.ExecuteNonQueryAsync();
+
+    var cmd = connection.CreateCommand();
+    cmd.CommandText = "INSERT INTO contact_messages (sender_name, sender_email, message_text) VALUES ($name, $email, $text);";
+    cmd.Parameters.AddWithValue("$name", msg.Name.Trim());
+    cmd.Parameters.AddWithValue("$email", msg.Email.Trim());
+    cmd.Parameters.AddWithValue("$text", msg.Message.Trim());
+    await cmd.ExecuteNonQueryAsync();
+
+    // 2. Изпращане на имейл до теб
+    try
+    {
+        string myEmail = "aynurahmed957@gmail.com";
+        string appPassword = "negs mglm ivgt houv";
+
+        using var smtp = new System.Net.Mail.SmtpClient("smtp" + ".gmail.com", 587)
+        {
+            Credentials = new System.Net.NetworkCredential(myEmail, appPassword),
+            EnableSsl = true
+        };
+
+        var mail = new System.Net.Mail.MailMessage(myEmail, myEmail)
+        {
+            Subject = $"Ново съобщение от WonderSci: {msg.Name}",
+            Body = $"Име: {msg.Name}\nИмейл за отговор: {msg.Email}\n\nСъобщение:\n{msg.Message}"
+        };
+        await smtp.SendMailAsync(mail);
+    }
+    catch
+    {
+        // Съобщението вече е запазено в базата данни
+    }
+
+    return Results.Ok(new { message = "Съобщението е изпратено успешно!" });
+});
+
+app.MapGet("/api/contact", async () =>
+{
+    using var connection = new SqliteConnection(connectionString);
+    await connection.OpenAsync();
+    var setup = connection.CreateCommand();
+    setup.CommandText = @"
+        CREATE TABLE IF NOT EXISTS contact_messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            sender_name TEXT NOT NULL,
+            sender_email TEXT NOT NULL,
+            message_text TEXT NOT NULL,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        );";
+    await setup.ExecuteNonQueryAsync();
+
+    var cmd = new SqliteCommand("SELECT id, sender_name, sender_email, message_text, created_at FROM contact_messages ORDER BY id DESC;", connection);
+    using var reader = await cmd.ExecuteReaderAsync();
+    var list = new List<object>();
+    while (await reader.ReadAsync())
+    {
+        list.Add(new {
+            id = reader.GetInt32(0),
+            name = reader.GetString(1),
+            email = reader.GetString(2),
+            message = reader.GetString(3),
+            createdAt = reader.GetString(4)
+        });
+    }
+    return Results.Ok(list);
+});
 
 app.Run();
 
@@ -361,5 +501,7 @@ record LoginRequest(string Email, string Password);
 record UpdateUserRequest(string FirstName, string LastName, string Email, string Phone);
 
 record OutcomeEventRequest(string EventName, string? Metadata);
+
+record ContactMessageRequest(string Name, string Email, string Message);
 
 public partial class Program { }
