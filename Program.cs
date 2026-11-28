@@ -523,8 +523,8 @@ app.MapPost("/api/newsletter/subscribe", async (NewsletterSubRequest req) =>
     // Изпращане на приветстващ имейл
     try
     {
-        string myEmail = "ТВОЯТ_ИМЕЙЛ@gmail.com";
-        string appPassword = "ТВОЯТА_16_БУКВЕНА_ПАРОЛА_ОТ_GOOGLE";
+        string myEmail = "aynurahmed957@gmail.com";
+        string appPassword = "negs mglm ivgt houv";
 
         using var smtp = new System.Net.Mail.SmtpClient("smtp" + ".gmail.com", 587)
         {
