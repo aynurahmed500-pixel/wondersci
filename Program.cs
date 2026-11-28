@@ -564,8 +564,8 @@ app.MapPost("/api/newsletter/send", async (NewsletterBroadcastRequest req) =>
     if (emails.Count == 0)
         return Results.BadRequest(new { message = "Все още няма записани абонати." });
 
-    string myEmail = "ТВОЯТ_ИМЕЙЛ@gmail.com";
-    string appPassword = "ТВОЯТА_16_БУКВЕНА_ПАРОЛА_ОТ_GOOGLE";
+    string myEmail = "aynurahmed957@gmail.com";
+    string appPassword = "negs mglm ivgt houv";
 
     using var smtp = new System.Net.Mail.SmtpClient("smtp" + ".gmail.com", 587)
     {
