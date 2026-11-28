@@ -34,3 +34,28 @@ async function applyFeatureFlags() {
 
 applyFeatureFlags();
 
+document.addEventListener("DOMContentLoaded", () => {
+    const nlForm = document.getElementById("newsletterForm");
+    if (!nlForm) return;
+
+    nlForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const emailInput = document.getElementById("newsletterEmail");
+        const status = document.getElementById("newsletterStatus");
+        status.textContent = "Записване...";
+
+        try {
+            const res = await fetch("/api/newsletter/subscribe", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: emailInput.value.trim() })
+            });
+            const data = await res.json();
+            status.textContent = data.message;
+            if (res.ok) nlForm.reset();
+        } catch {
+            status.textContent = "Грешка при връзка със сървъра.";
+        }
+    });
+});
+

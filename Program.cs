@@ -491,6 +491,108 @@ app.MapGet("/api/contact", async () =>
     return Results.Ok(list);
 });
 
+// 1. Записване за нюзлетър + автоматичен приветстващ имейл
+app.MapPost("/api/newsletter/subscribe", async (NewsletterSubRequest req) =>
+{
+    if (string.IsNullOrWhiteSpace(req.Email) || !req.Email.Contains("@"))
+        return Results.BadRequest(new { message = "Моля, въведете валиден имейл адрес." });
+
+    using var connection = new SqliteConnection(connectionString);
+    await connection.OpenAsync();
+    var setup = connection.CreateCommand();
+    setup.CommandText = @"
+        CREATE TABLE IF NOT EXISTS subscribers (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT NOT NULL UNIQUE,
+            subscribed_at TEXT DEFAULT CURRENT_TIMESTAMP
+        );";
+    await setup.ExecuteNonQueryAsync();
+
+    try
+    {
+        var cmd = connection.CreateCommand();
+        cmd.CommandText = "INSERT INTO subscribers (email) VALUES ($email);";
+        cmd.Parameters.AddWithValue("$email", req.Email.Trim().ToLower());
+        await cmd.ExecuteNonQueryAsync();
+    }
+    catch
+    {
+        return Results.BadRequest(new { message = "Този имейл вече е абониран за бюлетина!" });
+    }
+
+    // Изпращане на приветстващ имейл
+    try
+    {
+        string myEmail = "ТВОЯТ_ИМЕЙЛ@gmail.com";
+        string appPassword = "ТВОЯТА_16_БУКВЕНА_ПАРОЛА_ОТ_GOOGLE";
+
+        using var smtp = new System.Net.Mail.SmtpClient("smtp" + ".gmail.com", 587)
+        {
+            Credentials = new System.Net.NetworkCredential(myEmail, appPassword),
+            EnableSsl = true
+        };
+
+        var mail = new System.Net.Mail.MailMessage(myEmail, req.Email.Trim())
+        {
+            Subject = "Добре дошъл в научния бюлетин на WonderSci! 🧪",
+            Body = "Здравей!\n\nБлагодарим ти, че се абонира за бюлетина на WonderSci.\nОчаквай интересни научни факти, идеи за домашни експерименти и специални промо кодове (като SCIENCE20 за 20% отстъпка)!\n\nПоздрави,\nЕкипът на WonderSci"
+        };
+        await smtp.SendMailAsync(mail);
+    }
+    catch { }
+
+    return Results.Ok(new { message = "Успешен абонамент! Провери пощата си за приветстващо писмо." });
+});
+
+// 2. Изпращане на бюлетин до всички абонати (за админ панела)
+app.MapPost("/api/newsletter/send", async (NewsletterBroadcastRequest req) =>
+{
+    if (string.IsNullOrWhiteSpace(req.Subject) || string.IsNullOrWhiteSpace(req.Content))
+        return Results.BadRequest(new { message = "Попълнете заглавие и съдържание." });
+
+    using var connection = new SqliteConnection(connectionString);
+    await connection.OpenAsync();
+    var cmd = new SqliteCommand("SELECT email FROM subscribers;", connection);
+    using var reader = await cmd.ExecuteReaderAsync();
+
+    var emails = new List<string>();
+    while (await reader.ReadAsync())
+    {
+        emails.Add(reader.GetString(0));
+    }
+
+    if (emails.Count == 0)
+        return Results.BadRequest(new { message = "Все още няма записани абонати." });
+
+    string myEmail = "ТВОЯТ_ИМЕЙЛ@gmail.com";
+    string appPassword = "ТВОЯТА_16_БУКВЕНА_ПАРОЛА_ОТ_GOOGLE";
+
+    using var smtp = new System.Net.Mail.SmtpClient("smtp" + ".gmail.com", 587)
+    {
+        Credentials = new System.Net.NetworkCredential(myEmail, appPassword),
+        EnableSsl = true
+    };
+
+    int sentCount = 0;
+    foreach (var subscriberEmail in emails)
+    {
+        try
+        {
+            var mail = new System.Net.Mail.MailMessage(myEmail, subscriberEmail)
+            {
+                Subject = req.Subject,
+                Body = req.Content
+            };
+            await smtp.SendMailAsync(mail);
+            sentCount++;
+        }
+        catch { }
+    }
+
+    return Results.Ok(new { message = $"Бюлетинът беше изпратен успешно до {sentCount} абонати!" });
+});
+
+
 app.Run();
 
 record ProductCreateRequest(string Name, string Description, decimal Price, string Image, string Category);
@@ -503,5 +605,8 @@ record UpdateUserRequest(string FirstName, string LastName, string Email, string
 record OutcomeEventRequest(string EventName, string? Metadata);
 
 record ContactMessageRequest(string Name, string Email, string Message);
+
+record NewsletterSubRequest(string Email);
+record NewsletterBroadcastRequest(string Subject, string Content);
 
 public partial class Program { }
